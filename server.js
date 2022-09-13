@@ -26,9 +26,18 @@ cors_proxy.createServer({
   requireHeader: ['origin', 'x-requested-with'],
   // checkRateLimit: checkRateLimit,
   removeHeaders: [
-    'cookie',
-    'cookie2',
-
+    // 'cookie',
+    // 'cookie2',
+    // Strip Heroku-specific headers
+    'x-request-start',
+    'x-request-id',
+    'via',
+    'connect-time',
+    'total-route-time',
+    // Other Heroku added debug headers
+    // 'x-forwarded-for',
+    // 'x-forwarded-proto',
+    // 'x-forwarded-port',
   ],
   redirectSameOrigin: true,
   httpProxyOptions: {
