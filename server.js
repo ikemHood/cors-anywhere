@@ -17,29 +17,29 @@ function parseEnvList(env) {
 }
 
 // Set up rate-limiting to avoid abuse of the public CORS Anywhere server.
-var checkRateLimit = require('./lib/rate-limit')(process.env.CORSANYWHERE_RATELIMIT);
+// var checkRateLimit = require('./lib/rate-limit')(process.env.CORSANYWHERE_RATELIMIT);
 
 var cors_proxy = require('./lib/cors-anywhere');
 cors_proxy.createServer({
   originBlacklist: originBlacklist,
-  originWhitelist: ['https://sailtest.netlify.app','https://sailfi.co','http://sailfi.co'],
+  originWhitelist: ['https://sailtest.netlify.app','http://localhost:3000', 'https://sailfi.co','http://sailfi.co'],
   requireHeader: ['origin', 'x-requested-with'],
   // checkRateLimit: checkRateLimit,
   removeHeaders: [
     'cookie',
     'cookie2',
     // Strip Heroku-specific headers
-    'x-request-start',
-    'x-request-id',
-    'via',
-    'connect-time',
-    'total-route-time',
+    // 'x-request-start',0
+    // 'x-request-id',
+    // 'via',
+    // 'connect-time',
+    // 'total-route-time',
     // Other Heroku added debug headers
     // 'x-forwarded-for',
     // 'x-forwarded-proto',
     // 'x-forwarded-port',
   ],
-  redirectSameOrigin: true,
+  redirectSameOrigin: false,
   httpProxyOptions: {
     // Do not add X-Forwarded-For, etc. headers, because Heroku already adds it.
     xfwd: false,
